@@ -16,13 +16,14 @@ SLOT_WIDTH_Y = 0.1 #angle2
 SLOT_WIDTH_Z = 0.5 #dist
 
 def angle1_to_x( angle1 ):
-    return math.floor( number*10 ) / 10;
+    return math.floor( angle*10 ) / 10;
 
 my_assert_equals( "angle1_to_x( 0 )", angle1_to_x( 0 ), 0 )
 my_assert_equals( "angle1_to_x( -0.1 )", angle1_to_x( -0.1 ), -1 )
 my_assert_equals( "angle1_to_x( 0.1 )", angle1_to_x( 0.1 ), 0 )
 my_assert_equals( "angle1_to_x( 0.99 )", angle1_to_x( 0.99 ), 0 )
 my_assert_equals( "angle1_to_x( 1.00 )", angle1_to_x( 1.00 ), 1 )
+exit( 0 )
 
 def create_cube( x, y, z, listr ):
     bpy.ops.mesh.primitive_cylinder_add(
