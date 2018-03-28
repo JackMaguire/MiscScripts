@@ -16,10 +16,11 @@ def my_assert_equals( name, actual, theoretical ):
 SLOT_WIDTH_Z = 0.5 #dist
 
 def angle1_to_x( angle1 ):
-    if( angle1 < 0 ):
-        return math.floor( angle1 * 10 ) / 10
-    else:
-        return math.floor( angle1 * 10 ) / 10
+    return math.floor( angle1 * 10 ) / 10
+
+def angle2_to_y( angle2 ):
+    return angle1_to_x( angle2 )
+    #return math.floor( angle2 * 10 ) / 10
 
 my_assert_equals( "angle1_to_x( 0 )",     angle1_to_x( 0 ),      0   )
 my_assert_equals( "angle1_to_x( -0.11 )", angle1_to_x( -0.11 ), -0.2 )
