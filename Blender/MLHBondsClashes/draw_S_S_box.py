@@ -47,20 +47,37 @@ my_assert_equals( "angle1_to_x( 0.099 )", angle1_to_x( 0.099 ),  0   )
 my_assert_equals( "angle1_to_x( 0.99 )",  angle1_to_x( 0.99 ),   0.9 )
 my_assert_equals( "angle1_to_x( 1.00 )",  angle1_to_x( 1.00 ),   1.0 )
 
+#####################
+# BLENDER FUNCTIONS #
+#####################
+
+def to_group(named, obj):
+    '''
+    named:   (string) name of group to use, or to create if not present 
+    objs:    a collection of object references
+    '''
+    groups = bpy.data.groups
+
+    # alias existing group, or generate new group and alias that
+    group = groups.get(named, groups.new(named))
+
+    if obj.name not in group.objects:
+        group.objects.link(obj)
+
+
 def create_cube( angle1, angle2, dist, box_list ):
     bpy.ops.mesh.primitive_cube_add(
-        radius = 0.1, 
-        depth = D,
+        radius = 0.1,
         location = ( angle1_to_x( angle1 ), angle2_to_y( angle2 ), dist_to_z( dist ) )   
     )
     node = bpy.context.object
-    node.keyframe_insert( data_path="location", frame=1 )
+    #node.keyframe_insert( data_path="location", frame=1 )
 
-    start_frame = 130.0 - ( z - z_offset ) * 80.0 / 1.8
-    node.keyframe_insert( data_path="location", frame=start_frame )
+    #start_frame = 130.0 - ( z - z_offset ) * 80.0 / 1.8
+    #node.keyframe_insert( data_path="location", frame=start_frame )
 
-    node.location[2] = z
-    node.keyframe_insert( data_path="location", frame=130 )
+    #node.location[2] = z
+    #node.keyframe_insert( data_path="location", frame=130 )
 
     all_boxes.append( node )
     box_list.append( node )
@@ -100,4 +117,16 @@ output_clash = dataset[:,[ WORST_POSSIBLE_CLASH_SCORE ] ]
 
 num_elements = len( dataset )
 
-# Create Boxes
+# Create Clash Boxes
+for i in range( 0, num_elements ):
+    score = output_clash[ i ]
+    angle1 = input_3D[ i ][ 0 ]
+    angle2 = input_3D[ i ][ 1 ]
+    dist   = input_3D[ i ][ 2 ]
+
+    box_hist_val = math.floor( score * 10 )
+    print( "box_hist_val: " + str( box_hist_val ) + " score: " + str( score ) )
+    if box_hist_val > 9 :
+        box_hist_val = 9
+
+    new_mesh = create_cube( angle1, angle2, dist, box_hist[ box_hist_val ] )
