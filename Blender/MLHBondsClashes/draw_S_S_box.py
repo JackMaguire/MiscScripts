@@ -1,7 +1,7 @@
-import bpy
+#import bpy
 import math
 import numpy
-import re
+#import re
 
 def my_assert_equals( name, actual, theoretical ):
     if actual != theoretical:
