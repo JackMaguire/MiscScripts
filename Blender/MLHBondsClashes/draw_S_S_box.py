@@ -85,7 +85,7 @@ def create_cube( angle1, angle2, dist, box_list ):
     return node
 
 def color_material( material, scale_from_0_to_1 ):
-    r = 255 - ( ( 255.0 * scale_from_0_to_1 ) / 1.0 )
+    r = 1.0 - scale_from_0_to_1
     g = r
     b = r
     material.diffuse_color = r, g, b
