@@ -126,7 +126,11 @@ ANGLE1 = int( 10 )
 ANGLE2 = int( 11 )
 DIST   = int( 12 )
 
-if( platform.platform().startswith( "Linux" ) ):
+custom_input_file=""
+custom_input_file="/Volumes/My Book/tensorflow_hbonds_and_clashes/S_S/first_1000.txt"
+if( len(custom_input_file) > 0 ):
+    dataset = numpy.genfromtxt( custom_input_file, delimiter=",", skip_header=1 )
+elif( platform.platform().startswith( "Linux" ) ):
     dataset = numpy.genfromtxt( "/home/jack/HBondMachineLearning/sample_data.csv", delimiter=",", skip_header=1 )
 else:
     dataset = numpy.genfromtxt( "/Users/jack/HBondMachineLearning/sample_data.csv", delimiter=",", skip_header=1 )
