@@ -68,7 +68,7 @@ def to_group(named, obj):
 
 def create_cube( angle1, angle2, dist, box_list ):
     bpy.ops.mesh.primitive_cube_add(
-        radius = 0.1,
+        radius = 0.05,
         location = ( angle1_to_x( angle1 ), angle2_to_y( angle2 ), dist_to_z( dist ) )   
     )
     node = bpy.context.object
@@ -133,3 +133,17 @@ for i in range( 0, num_elements ):
         box_hist_val = 9
 
     new_mesh = create_cube( angle1, angle2, dist, box_hist[ box_hist_val ] )
+
+
+for i in range( 0, len( box_hist ) ):
+    material_name = str( i )
+    node_mat = bpy.data.materials.get( material_name )
+    if node_mat is None:
+        node_mat = bpy.data.materials.new( name=material_name )
+
+    for node in box_hist[ i ]:
+        if node.data.materials:
+            node.data.materials[ 0 ] = node_mat
+        else:
+            node.data.materials.append( node_mat )
+
