@@ -68,7 +68,7 @@ def to_group(named, obj):
 
 def create_cube( angle1, angle2, dist, box_list ):
     bpy.ops.mesh.primitive_cube_add(
-        radius = 0.05,
+        radius = 0.03,
         location = ( angle1_to_x( angle1 ), angle2_to_y( angle2 ), dist_to_z( dist ) )   
     )
     node = bpy.context.object
@@ -86,7 +86,7 @@ def create_cube( angle1, angle2, dist, box_list ):
 
 def color_material( material, scale_from_0_to_1 ):
     b = 0
-    if scale_from_0_to_1 < 0.3:        #first, green stays at 100%, red raises to 100%
+    if scale_from_0_to_1 < 0.5:        #first, green stays at 100%, red raises to 100%
         g = 1.0
         r = 2 * scale_from_0_to_1
     else:
