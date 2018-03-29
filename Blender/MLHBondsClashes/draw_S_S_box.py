@@ -84,6 +84,11 @@ def create_cube( angle1, angle2, dist, box_list ):
     box_list.append( node )
     return node
 
+def color_material( material, scale_from_0_to_1 ):
+    r = ( 255.0 * scale_from_0_to_1 ) / 1.0
+    g = r
+    b = b
+    material.diffuse_color = r, g, b
 
 #13 columns
 #best_possible_hbond_score,worst_possible_clash_score,tx,ty,tz,rz,ry,rz,pair,cenpack,angle1,angle2,dist
@@ -136,10 +141,18 @@ for i in range( 0, num_elements ):
 
 
 for i in range( 0, len( box_hist ) ):
+    if( len( box_hist[i] ) == 0 ):
+        continue
+
     material_name = str( i )
+    group_name = "group_" + str( i )
+
+    group = bpy.ops.group.create( name=group_name )
+
     node_mat = bpy.data.materials.get( material_name )
     if node_mat is None:
         node_mat = bpy.data.materials.new( name=material_name )
+        color_material( node_mat, 0 )
 
     for node in box_hist[ i ]:
         if node.data.materials:
@@ -147,3 +160,4 @@ for i in range( 0, len( box_hist ) ):
         else:
             node.data.materials.append( node_mat )
 
+        to_group( group_name, node )
