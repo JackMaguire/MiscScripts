@@ -127,7 +127,7 @@ ANGLE2 = int( 11 )
 DIST   = int( 12 )
 
 custom_input_file=""
-custom_input_file="/Volumes/My Book/tensorflow_hbonds_and_clashes/R_R/first_10000.txt"
+#custom_input_file="/Volumes/My Book/tensorflow_hbonds_and_clashes/E_W/first_2000.txt"
 if( len(custom_input_file) > 0 ):
     dataset = numpy.genfromtxt( custom_input_file, delimiter=",", skip_header=1 )
 elif( platform.platform().startswith( "Linux" ) ):
