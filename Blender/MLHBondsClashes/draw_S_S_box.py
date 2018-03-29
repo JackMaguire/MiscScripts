@@ -85,9 +85,9 @@ def create_cube( angle1, angle2, dist, box_list ):
     return node
 
 def color_material( material, scale_from_0_to_1 ):
-    r = ( 255.0 * scale_from_0_to_1 ) / 1.0
+    r = 255 - ( ( 255.0 * scale_from_0_to_1 ) / 1.0 )
     g = r
-    b = b
+    b = r
     material.diffuse_color = r, g, b
 
 #13 columns
@@ -152,7 +152,8 @@ for i in range( 0, len( box_hist ) ):
     node_mat = bpy.data.materials.get( material_name )
     if node_mat is None:
         node_mat = bpy.data.materials.new( name=material_name )
-        color_material( node_mat, 0 )
+        frac = float( i ) / ( len( box_hist ) - 1 )
+        color_material( node_mat, frac )
 
     for node in box_hist[ i ]:
         if node.data.materials:
