@@ -103,9 +103,7 @@ def color_material( material, scale_from_0_to_1 ):
 
 def clash_skip( score, angle1, angle2, dist ):
     #TODO make this more complicated
-    if( score == 0 ):
-        return true
-    return false
+    return score == 0
 
 #13 columns
 #best_possible_hbond_score,worst_possible_clash_score,tx,ty,tz,rz,ry,rz,pair,cenpack,angle1,angle2,dist
