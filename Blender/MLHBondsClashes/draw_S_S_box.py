@@ -155,9 +155,9 @@ for i in range( 0, num_elements ):
         continue
 
     box_hist_val = math.floor( score * 10 )
-    print( "box_hist_val: " + str( box_hist_val ) + " score: " + str( score ) )
     if box_hist_val > 9 :
         box_hist_val = 9
+    print( "box_hist_val: " + str( box_hist_val ) + " score: " + str( score ) )
 
     new_mesh = create_cube( angle1, angle2, dist, box_hist[ box_hist_val ] )
 
