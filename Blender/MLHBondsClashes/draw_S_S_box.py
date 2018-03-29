@@ -102,8 +102,10 @@ def color_material( material, scale_from_0_to_1 ):
 #######################
 
 def clash_skip( score, angle1, angle2, dist ):
+    #TODO make this more complicated
     if( score == 0 ):
-        continue
+        return true
+    return false
 
 #13 columns
 #best_possible_hbond_score,worst_possible_clash_score,tx,ty,tz,rz,ry,rz,pair,cenpack,angle1,angle2,dist
@@ -147,7 +149,7 @@ for i in range( 0, num_elements ):
     angle2 = input_3D[ i ][ 1 ]
     dist   = input_3D[ i ][ 2 ]
 
-    if( clash_skip( score, angle1, angle2, dist ):
+    if( clash_skip( score, angle1, angle2, dist ) ):
         continue
 
     box_hist_val = math.floor( score * 10 )
