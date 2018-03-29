@@ -37,7 +37,7 @@ def angle2_to_y( angle2 ):
     #return math.floor( angle2 * 10 ) / 10
 
 def dist_to_z( dist ):
-    return math.floor( dist ) / 10
+    return math.floor( dist * 5 ) / 10
 
 my_assert_equals( "angle1_to_x( 0 )",     angle1_to_x( 0 ),      0   )
 my_assert_equals( "angle1_to_x( -0.11 )", angle1_to_x( -0.11 ), -0.2 )
@@ -127,7 +127,7 @@ ANGLE2 = int( 11 )
 DIST   = int( 12 )
 
 custom_input_file=""
-custom_input_file="/Volumes/My Book/tensorflow_hbonds_and_clashes/S_S/first_10000.txt"
+custom_input_file="/Volumes/My Book/tensorflow_hbonds_and_clashes/R_R/first_10000.txt"
 if( len(custom_input_file) > 0 ):
     dataset = numpy.genfromtxt( custom_input_file, delimiter=",", skip_header=1 )
 elif( platform.platform().startswith( "Linux" ) ):
