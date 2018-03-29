@@ -2,6 +2,7 @@ import bpy
 import math
 import numpy
 import re
+import platform
 
 # Global data #
 all_boxes = []
@@ -105,8 +106,10 @@ ANGLE1 = int( 10 )
 ANGLE2 = int( 11 )
 DIST   = int( 12 )
 
-dataset = numpy.genfromtxt( "/home/jack/HBondMachineLearning/sample_data.csv", delimiter=",", skip_header=1 )
-#print( len( dataset[ 0 ] ) )
+if( platform.platform().startswith( "Linux" ) ):
+    dataset = numpy.genfromtxt( "/home/jack/HBondMachineLearning/sample_data.csv", delimiter=",", skip_header=1 )
+else:
+    dataset = numpy.genfromtxt( "/Users/jack/HBondMachineLearning/sample_data.csv", delimiter=",", skip_header=1 )
 
 input = dataset[:,[ TX, TY, TZ, RX, RY, RZ, ANGLE1, ANGLE2, DIST ] ]
 input_3D = dataset[:, [ ANGLE1, ANGLE2, DIST ] ]
