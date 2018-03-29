@@ -85,10 +85,25 @@ def create_cube( angle1, angle2, dist, box_list ):
     return node
 
 def color_material( material, scale_from_0_to_1 ):
-    r = 1.0 - scale_from_0_to_1
-    g = r
-    b = r
-    material.diffuse_color = r, g, b
+    b = 0
+    if scale_from_0_to_1 < 0.5:        #first, green stays at 100%, red raises to 100%
+        g = 1.0
+        r = 2 * scale_from_0_to_1
+    else:
+        r = 1.0
+        g = 1.0 - 2 * (scale_from_0_to_1-0.5)
+    #r = 1.0 - scale_from_0_to_1
+    #g = r
+    #b = r
+    material.diffuse_color = ( r, g, b )
+
+#######################
+# Customization Funcs #
+#######################
+
+def clash_skip( score, angle1, angle2, dist ):
+    if( score == 0 ):
+        continue
 
 #13 columns
 #best_possible_hbond_score,worst_possible_clash_score,tx,ty,tz,rz,ry,rz,pair,cenpack,angle1,angle2,dist
@@ -131,6 +146,9 @@ for i in range( 0, num_elements ):
     angle1 = input_3D[ i ][ 0 ]
     angle2 = input_3D[ i ][ 1 ]
     dist   = input_3D[ i ][ 2 ]
+
+    if( clash_skip( score, angle1, angle2, dist ):
+        continue
 
     box_hist_val = math.floor( score * 10 )
     print( "box_hist_val: " + str( box_hist_val ) + " score: " + str( score ) )
