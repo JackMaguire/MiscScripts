@@ -34,5 +34,5 @@ def rotate_camera_around_point_XY( x, y, z, r, first_frame, last_frame, pos_offs
         #need to use radians here
         camera.rotation_euler[ 0 ] = math.pi / 2.0
         camera.rotation_euler[ 1 ] = 0.0
-        camera.rotation_euler[ 2 ] = 2.0 * math.pi * percent
+        camera.rotation_euler[ 2 ] = math.pi * ( 0.5 + ( 2.0 * percent ) )
         camera.keyframe_insert( data_path="rotation_euler", frame=i )
