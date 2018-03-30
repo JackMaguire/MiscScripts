@@ -10,6 +10,7 @@
 
 ;; (global-set-key [\M q] 'query-replace-regexp)
 
+(add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
 
 (setq inhibit-splash-screen t)
 
