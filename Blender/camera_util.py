@@ -1,3 +1,6 @@
+import bpy
+import math
+
 def get_active_camera():
     return bpy.context.scene.camera
 
@@ -27,7 +30,7 @@ def rotate_camera_around_point_XY( x, y, z, r, first_frame, last_frame, pos_offs
         camera.location[ 2 ] = z
         camera.keyframe_insert( data_path="location", frame=x )
 
-        camera.rotation[ 0 ] = 90
-        camera.rotation[ 1 ] = 0
-        camera.rotation[ 2 ] = 360.0 * percent
-        camera.keyframe_insert( data_path="rotation", frame=x )
+        camera.rotation_euler[ 0 ] = 90
+        camera.rotation_euler[ 1 ] = 0
+        camera.rotation_euler[ 2 ] = 360.0 * percent
+        camera.keyframe_insert( data_path="rotation_euler", frame=x )
