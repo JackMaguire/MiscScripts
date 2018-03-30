@@ -12,6 +12,8 @@ In that vein, here are some webpages that I've had bookmarked forever because I 
 
 ### Python Only
 
+- TODO
+
 ### GUI Only
 - [How to Toggle Rendering for All Selected Objects](https://blender.stackexchange.com/questions/58300/how-to-toggle-renderable-on-off-for-objects-in-the-3d-view)
 - [Applying Material to Multiple Objects at Once](https://blenderartists.org/forum/showthread.php?24688-How-can-apply-a-material-to-multiple-objects-simultaneously)
@@ -42,5 +44,4 @@ In that vein, here are some webpages that I've had bookmarked forever because I 
 
 ## Unreal Engine
 - [How to spawn a sphere in C++](https://answers.unrealengine.com/questions/272257/how-can-i-spawn-a-sphere-in-c-1.html)
-<>- [How to spawn a sphere in C++ at runtime](https://answers.unrealengine.com/questions/25589/try-to-create-sphere-at-runtime.html)
 - [Create Cylinger Mesh Programmatically](https://answers.unrealengine.com/questions/420263/create-cylinder-mesh-programmatically.html)
