@@ -1,12 +1,3 @@
-;; (c) Copyright Rosetta Commons Member Institutions.
-;; (c) This file is part of the Rosetta software suite and is made available under license.
-;; (c) The Rosetta software is developed by the contributing members of the Rosetta Commons.
-;; (c) For more information, see http://www.rosettacommons.org. Questions about this can be
-;; (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
-
-;; @file rosetta_tests/emacs_init.el
-;; @author Matthew O'Meara (mattjomeara@gmail.com)
-
 (setq cc-search-directories '("." "../src" "../../src" "../../../src" "../../../../src" "../../../../../src"))
 
 (when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
@@ -67,7 +58,7 @@
 ; if you find a place where it isn't working right
 ; do C-c C-s and it will tell you what syntax element you are in
 ; then add a c-set-offset command   -> '+ is one tab stop
-(defun rosetta-c++-mode-hook ()
+(defun my-c++-mode-hook ()
   ;; RosettaCommons Syntax style for C++ code
 
   (c-set-offset 'arglist-intro '+)
@@ -83,7 +74,7 @@
   "set which-function-mode to true"
   (which-function-mode t ))
 
-(add-hook 'c-mode-common-hook 'rosetta-c++-mode-hook)
+(add-hook 'c-mode-common-hook 'my-c++-mode-hook)
 (add-hook 'c-mode-common-hook 'enable-which-function-mode)
 
 
@@ -121,5 +112,6 @@
 ;     (color-theme-initialize)
 ;     (color-theme-hober)))
 
-(add-to-list 'custom-theme-load-path "/Users/jack/.emacs.d/themes/")
+
+(add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes/")
 (load-theme 'badwolf t)
