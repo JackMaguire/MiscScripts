@@ -39,3 +39,8 @@ In that vein, here are some webpages that I've had bookmarked forever because I 
 ## Apple/Mac:
 
 - [Mirroring 2 external displays](https://discussions.apple.com/thread/1482760)
+
+## Unreal Engine
+- [How to spawn a sphere in C++](https://answers.unrealengine.com/questions/272257/how-can-i-spawn-a-sphere-in-c-1.html)
+<>- [How to spawn a sphere in C++ at runtime](https://answers.unrealengine.com/questions/25589/try-to-create-sphere-at-runtime.html)
+- [Create Cylinger Mesh Programmatically](https://answers.unrealengine.com/questions/420263/create-cylinder-mesh-programmatically.html)
