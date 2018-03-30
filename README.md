@@ -4,6 +4,22 @@ This repo is pretty much just a space for me to store all of my free-floating pr
 
 In that vein, here are some webpages that I've had bookmarked forever because I use them occasionally:
 
+## Blender
+
+### General
+- [Manual for Command Line Interface](https://docs.blender.org/manual/ja/dev/render/workflows/command_line.html)
+- [Command Line Interface Over SSH](https://blender.stackexchange.com/questions/42711/can-i-run-blender-on-my-universities-server-through-ssh)
+
+### Python Only
+
+### GUI Only
+- [How to Toggle Rendering for All Selected Objects](https://blender.stackexchange.com/questions/58300/how-to-toggle-renderable-on-off-for-objects-in-the-3d-view)
+- [Applying Material to Multiple Objects at Once](https://blenderartists.org/forum/showthread.php?24688-How-can-apply-a-material-to-multiple-objects-simultaneously)
+- [Selecting Objects Based on Material](https://blender.stackexchange.com/questions/3390/how-to-select-objects-based-on-materials)
+- [Deselecting One Object](https://blenderartists.org/forum/archive/index.php/t-225522.html)
+- [WikiHow: Blender Compositer](https://www.wikihow.com/Use-the-Compositor-in-Blender)
+- [Adding Keyframes for All Selected Objects](https://blender.stackexchange.com/questions/1621/how-to-add-keyframes-for-multiple-objects-at-once)
+
 ## C++
 
 - [Compiler Explorer](https://godbolt.org)
