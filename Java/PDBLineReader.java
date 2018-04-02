@@ -62,7 +62,7 @@ public class PDBLineReader {
 		}
 	}
 
-	public String get_ALTERNATE_LOCATION_INDICATOR() {
+	public String getAlternateLocationIndicator() {
 		if( isAtom() ) {
 			try {
 				return "" + line_.charAt( 16 );
@@ -78,7 +78,7 @@ public class PDBLineReader {
 		}
 	}
 
-	public String get_RESIDUE_NAME() {
+	public String getResidueName() {
 		if( isAtom() ) {
 			try {
 				return Extract( 17, 20 );
@@ -93,7 +93,7 @@ public class PDBLineReader {
 		}
 	}
 
-	public String get_CHAIN_ID() {
+	public String getChainID() {
 		if( isAtom() ) {
 			try {
 				return "" + line_.charAt( 21 );
@@ -108,7 +108,7 @@ public class PDBLineReader {
 		}
 	}
 
-	public int get_RESIDUE_NUMBER() {
+	public int getResidueNumber() {
 		if( isAtom() ) {
 			try {
 				return Integer.parseInt( Extract( 22, 26 ) );
@@ -123,7 +123,7 @@ public class PDBLineReader {
 		}
 	}
 
-	public String get_AChar() {
+	public String getAChar() {
 		if( isAtom() ) {
 			try {
 				return "" + line_.charAt( 26 );
@@ -138,7 +138,7 @@ public class PDBLineReader {
 		}
 	}
 
-	public double get_X() {
+	public double getPositionX() {
 		if( isAtom() ) {
 			try {
 				return Double.parseDouble( Extract( 30, 38 ) );
@@ -153,7 +153,7 @@ public class PDBLineReader {
 		}
 	}
 
-	public double get_Y() {
+	public double getPositionY() {
 		if( isAtom() ) {
 			try {
 				return Double.parseDouble( Extract( 38, 46 ) );
@@ -168,7 +168,7 @@ public class PDBLineReader {
 		}
 	}
 
-	public double get_Z() {
+	public double getPositionZ() {
 		if( isAtom() ) {
 			try {
 				return Double.parseDouble( Extract( 46, 54 ) );
@@ -183,7 +183,7 @@ public class PDBLineReader {
 		}
 	}
 
-	public double get_OCCUPANCY() {
+	public double getOccupancy() {
 		if( isAtom() ) {
 			try {
 				return Double.parseDouble( Extract( 54, 60 ) );
@@ -198,7 +198,7 @@ public class PDBLineReader {
 		}
 	}
 
-	public double get_TEMPERATURE_FACTOR() {
+	public double getTemperatureFactor() {
 		if( isAtom() ) {
 			try {
 				return Double.parseDouble( Extract( 60, 66 ) );
@@ -213,7 +213,7 @@ public class PDBLineReader {
 		}
 	}
 
-	public String get_SEGMENT_ID() {
+	public String getSegmentID() {
 		if( isAtom() ) {
 			try {
 				return Extract( 72, 76 );
@@ -228,7 +228,7 @@ public class PDBLineReader {
 		}
 	}
 
-	public String get_ELEMENT() {
+	public String getElement() {
 		if( isAtom() ) {
 			try {
 				return Extract( 76, 78 );
@@ -243,7 +243,7 @@ public class PDBLineReader {
 		}
 	}
 
-	public String get_CHARGE() {
+	public String getCharge() {
 		if( isAtom() ) {
 			try {
 				return Extract( 78, 80 );
@@ -259,15 +259,15 @@ public class PDBLineReader {
 	}
 
 	// Set Info
-	public void set_LINE( String NEW ) {
+	public void setLine( String NEW ) {
 		line_ = NEW;
 	}
 
-	public void set_TYPE( String NEW ) {
+	public void setType( String NEW ) {
 		Rewrite( Repack( NEW, true, 6 ), 0 );
 	}
 
-	public void set_ATOM_NUMBER( int i ) {
+	public void setAtomNumber( int i ) {
 		if( i > 99999 ) {
 			System.err.println( "Can not create more than 99999 atoms" );
 			return;
@@ -277,25 +277,23 @@ public class PDBLineReader {
 		// TODO
 	}
 
-	public void set_ATOM_NAME( String NEW ) {
+	public void setAtomName( String NEW ) {
 		System.err.println( "PDBLineReader.set_ATOM_NAME has not yet been written. Sorry" );
 	}
 
-	public void set_RESIDUE_NAME( String NEW ) {
-		Rewrite( NEW, 17 );// TODO I wrote this really quickly
+	public void setResidueName( String NEW ) {
+		Rewrite( NEW, 17 );// TODO I wrote this really quickly, needs more work
 	}
 
-	//
-
-	public void set_ALTERNATE_LOCATION_INDICATOR() {
+	public void setAlternateLocationIndicator() {
 		// TODO
 	}
 
-	public void set_CHAIN_ID() {
+	public void setChainID() {
 		// TODO
 	}
 
-	public void set_RESIDUE_NUMBER( int i ) {
+	public void setResidueNumber( int i ) {
 		if( i > 9999 ) {
 			System.err.println( "Can not create more than 9999 residues" );
 			return;
@@ -304,39 +302,39 @@ public class PDBLineReader {
 		Rewrite( Repack( i + "", false, 4 ), 22 );
 	}
 
-	public void set_AChar() {
+	public void setAChar() {
 		// TODO
 	}
 
-	public void set_X() {
+	public void setPositionX() {
 		// TODO
 	}
 
-	public void set_Y() {
+	public void setPositionY() {
 		// TODO
 	}
 
-	public void set_Z() {
+	public void setPositionZ() {
 		// TODO
 	}
 
-	public void set_OCCUPANCY() {
+	public void setOccupancy() {
 		// TODO
 	}
 
-	public void set_TEMPERATURE_FACTOR() {
+	public void setTemperatureFactor() {
 		// TODO
 	}
 
-	public void set_SEGMENT_ID() {
+	public void setSegmentID() {
 		// TODO
 	}
 
-	public void set_ELEMENT() {
+	public void setElement() {
 		// TODO
 	}
 
-	public void set_CHARGE() {
+	public void setCharge() {
 		// TODO
 	}
 
@@ -346,10 +344,8 @@ public class PDBLineReader {
 	}
 
 	public final void Rewrite( String NEW, int location_of_first_char ) {
-
 		line_ = line_.substring( 0, location_of_first_char ) + NEW
 				+ line_.substring( location_of_first_char + NEW.length() );
-
 	}
 
 	public final static String Repack( Object O, boolean add_to_right_side, int length ) {
@@ -376,14 +372,14 @@ public class PDBLineReader {
 
 		String OUT = "";
 
-		outerloop: for( int i = 0; i < IN.length(); i++ ) {
-
-			for( char C : bad )
-				if( IN.charAt( i ) == C )
+		outerloop:
+		for( int i = 0; i < IN.length(); i++ ) {
+			for( char C : bad ){
+				if( IN.charAt( i ) == C ){
 					continue outerloop;
-
+				}
+			}
 			OUT += IN.charAt( i );
-
 		}
 
 		return OUT;
