@@ -1,31 +1,31 @@
 
  public class PDBLineReader {
 
-	 private String LINE;
+	 private String line_;
 
 	 //Constructor
 	 public PDBLineReader(String S){
-		 LINE = S;
+		 line_ = S;
 	 }
 
 	 //Line Type
 	 public boolean is_ATOM(){
-		 if(LINE.length()<4)
+		 if(line_.length()<4)
 			 return false;
-		 return LINE.substring(0, 4).equals("ATOM");
+		 return line_.substring(0, 4).equals("ATOM");
 	 }
 
 	 public boolean is_TER(){
-		 return LINE.substring(0, 3).equals("TER");
+		 return line_.substring(0, 3).equals("TER");
 	 }
 
 	 public boolean is_ENDMDL(){
-		 return LINE.substring(0, 6).equals("ENDMDL");
+		 return line_.substring(0, 6).equals("ENDMDL");
 	 }
 
 	 //Get Info
 	 public String get_LINE(){
-		 return LINE;
+		 return line_;
 	 }
 
 	 public String get_TYPE(){
@@ -38,12 +38,12 @@
 				 return Integer.parseInt(Extract(6,11));
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the atom number can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the atom number can not be parsed.");
 				 return -1;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the atom number is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the atom number is trying to be parsed.");
 			 return -1;
 		 }
 	 }
@@ -54,12 +54,12 @@
 				 return Extract(12,16);
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the atom name can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the atom name can not be parsed.");
 				 return null;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the atom name is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the atom name is trying to be parsed.");
 			 return null;
 		 }
 	 }
@@ -67,15 +67,15 @@
 	 public String get_ALTERNATE_LOCATION_INDICATOR(){
 		 if(is_ATOM()){
 			 try{
-				 return "" + LINE.charAt(16);
+				 return "" + line_.charAt(16);
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the alternate location indicator can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the alternate location indicator can not be parsed.");
 				 return null;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the alternate location indicator is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the alternate location indicator is trying to be parsed.");
 			 return null;
 		 }
 	 }
@@ -86,12 +86,12 @@
 				 return Extract(17,20);
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the residue name can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the residue name can not be parsed.");
 				 return null;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the residue name is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the residue name is trying to be parsed.");
 			 return null;
 		 }
 	 }
@@ -99,15 +99,15 @@
 	 public String get_CHAIN_ID(){
 		 if(is_ATOM()){
 			 try{
-				 return "" + LINE.charAt(21);
+				 return "" + line_.charAt(21);
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the chain identifier can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the chain identifier can not be parsed.");
 				 return null;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the chain identifier is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the chain identifier is trying to be parsed.");
 			 return null;
 		 }
 	 }
@@ -118,12 +118,12 @@
 				 return Integer.parseInt(Extract(22,26));
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the atom number can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the atom number can not be parsed.");
 				 return -1;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the atom number is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the atom number is trying to be parsed.");
 			 return -1;
 		 }
 	 }
@@ -131,15 +131,15 @@
 	 public String get_AChar(){
 		 if(is_ATOM()){
 			 try{
-				 return "" + LINE.charAt(26);
+				 return "" + line_.charAt(26);
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the AChar can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the AChar can not be parsed.");
 				 return null;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the AChar is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the AChar is trying to be parsed.");
 			 return null;
 		 }
 	 }
@@ -150,12 +150,12 @@
 				 return Double.parseDouble(Extract(30,38));
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the x coordinate can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the x coordinate can not be parsed.");
 				 return Double.NEGATIVE_INFINITY;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the x coordinate is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the x coordinate is trying to be parsed.");
 			 return Double.NEGATIVE_INFINITY;
 		 }
 	 }
@@ -166,12 +166,12 @@
 				 return Double.parseDouble(Extract(38,46));
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the y coordinate can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the y coordinate can not be parsed.");
 				 return Double.NEGATIVE_INFINITY;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the y coordinate is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the y coordinate is trying to be parsed.");
 			 return Double.NEGATIVE_INFINITY;
 		 }
 	 }
@@ -182,12 +182,12 @@
 				 return Double.parseDouble(Extract(46,54));
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the z coordinate can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the z coordinate can not be parsed.");
 				 return Double.NEGATIVE_INFINITY;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the z coordinate is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the z coordinate is trying to be parsed.");
 			 return Double.NEGATIVE_INFINITY;
 		 }
 	 }
@@ -198,12 +198,12 @@
 				 return Double.parseDouble(Extract(54,60));
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the occupancy can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the occupancy can not be parsed.");
 				 return Double.NEGATIVE_INFINITY;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the occupancy is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the occupancy is trying to be parsed.");
 			 return Double.NEGATIVE_INFINITY;
 		 }
 	 }
@@ -214,12 +214,12 @@
 				 return Double.parseDouble(Extract(60,66));
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the temperature factor can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the temperature factor can not be parsed.");
 				 return Double.NEGATIVE_INFINITY;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the temperature factor is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the temperature factor is trying to be parsed.");
 			 return Double.NEGATIVE_INFINITY;
 		 }
 	 }
@@ -230,12 +230,12 @@
 				 return Extract(72,76);
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the segment identifier can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the segment identifier can not be parsed.");
 				 return null;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the segment identifier is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the segment identifier is trying to be parsed.");
 			 return null;
 		 }
 	 }
@@ -246,12 +246,12 @@
 				 return Extract(76,78);
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the chemical element can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the chemical element can not be parsed.");
 				 return null;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the chemical element is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the chemical element is trying to be parsed.");
 			 return null;
 		 }
 	 }
@@ -262,19 +262,19 @@
 				 return Extract(78,80);
 			 }
 			 catch(Exception E){
-				 System.err.println(LINE + " is read as an ATOM but the charge can not be parsed.");
+				 System.err.println(line_ + " is read as an ATOM but the charge can not be parsed.");
 				 return null;
 			 }
 		 }
 		 else{
-			 System.err.println(LINE + " is not read as an ATOM but the charge is trying to be parsed.");
+			 System.err.println(line_ + " is not read as an ATOM but the charge is trying to be parsed.");
 			 return null;
 		 }
 	 }
 
 	 //Set Info
 	 public void set_LINE(String NEW){
-		 LINE = NEW;
+		 line_ = NEW;
 	 }
 
 	 public void set_TYPE(String NEW){
@@ -360,12 +360,12 @@
 
 	 //Utilities
 	 public final String Extract(int start, int end){
-		 return remove_chars(LINE.substring(start, end),new char[]{' '});
+		 return remove_chars(line_.substring(start, end),new char[]{' '});
 	 }
 
 	 public final void Rewrite(String NEW, int location_of_first_char){
 
-		 LINE = LINE.substring(0,location_of_first_char) + NEW + LINE.substring(location_of_first_char+NEW.length());
+		 line_ = line_.substring(0,location_of_first_char) + NEW + line_.substring(location_of_first_char+NEW.length());
 
 	 }
 
