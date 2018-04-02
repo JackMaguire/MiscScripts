@@ -389,9 +389,9 @@ public class PDBLineReader {
 	public static void main( String[] args ) {
 		PDBLineReader Paul = new PDBLineReader(
 				"ATOM      1  N   TRP A   1       2.304 -17.099  24.233  1.00  0.00           N" );
-		System.out.println( Paul.get_LINE() );
-		Paul.set_ATOM_NUMBER( 502 );
-		Paul.set_RESIDUE_NUMBER( 50 );
-		System.out.println( Paul.get_LINE() );
+		System.out.println( Paul.getLine() );
+		Paul.setAtomNumber( 502 );
+		Paul.setResidueNumber( 50 );
+		System.out.println( Paul.getLine() );
 	}
 }
