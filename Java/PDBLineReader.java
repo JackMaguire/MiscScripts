@@ -9,10 +9,10 @@
 	 }
 
 	 //Line Type
-	 public boolean is_ATOM(){
-		 if(line_.length()<4)
+	 public boolean isAtom(){
+		 if( line_.length() < 4 )
 			 return false;
-		 return line_.substring(0, 4).equals("ATOM");
+		 return line_.substring( 0, 4 ).equals( "ATOM" );
 	 }
 
 	 public boolean is_TER(){
@@ -33,7 +33,7 @@
 	 }
 
 	 public int get_ATOM_NUMBER(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return Integer.parseInt(Extract(6,11));
 			 }
@@ -49,7 +49,7 @@
 	 }
 
 	 public String get_ATOM_NAME(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return Extract(12,16);
 			 }
@@ -65,7 +65,7 @@
 	 }
 
 	 public String get_ALTERNATE_LOCATION_INDICATOR(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return "" + line_.charAt(16);
 			 }
@@ -81,7 +81,7 @@
 	 }
 
 	 public String get_RESIDUE_NAME(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return Extract(17,20);
 			 }
@@ -97,7 +97,7 @@
 	 }
 
 	 public String get_CHAIN_ID(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return "" + line_.charAt(21);
 			 }
@@ -113,7 +113,7 @@
 	 }
 
 	 public int get_RESIDUE_NUMBER(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return Integer.parseInt(Extract(22,26));
 			 }
@@ -129,7 +129,7 @@
 	 }
 
 	 public String get_AChar(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return "" + line_.charAt(26);
 			 }
@@ -145,7 +145,7 @@
 	 }
 
 	 public double get_X(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return Double.parseDouble(Extract(30,38));
 			 }
@@ -161,7 +161,7 @@
 	 }
 
 	 public double get_Y(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return Double.parseDouble(Extract(38,46));
 			 }
@@ -177,7 +177,7 @@
 	 }
 
 	 public double get_Z(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return Double.parseDouble(Extract(46,54));
 			 }
@@ -193,7 +193,7 @@
 	 }
 
 	 public double get_OCCUPANCY(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return Double.parseDouble(Extract(54,60));
 			 }
@@ -209,7 +209,7 @@
 	 }
 
 	 public double get_TEMPERATURE_FACTOR(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return Double.parseDouble(Extract(60,66));
 			 }
@@ -225,7 +225,7 @@
 	 }
 
 	 public String get_SEGMENT_ID(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return Extract(72,76);
 			 }
@@ -241,7 +241,7 @@
 	 }
 
 	 public String get_ELEMENT(){
-		 if(is_ATOM()){
+		 if(isAtom()){
 			 try{
 				 return Extract(76,78);
 			 }
@@ -257,7 +257,7 @@
 	 }
 
 	 public String get_CHARGE(){
-		 if(is_ATOM()){
+		 if( isAtom() ){
 			 try{
 				 return Extract(78,80);
 			 }
