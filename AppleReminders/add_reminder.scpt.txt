@@ -1,0 +1,13 @@
+on run argv
+   set name_ to "automated notification"
+   if (count of argv) > 0 then
+      set name_ to (item 1 of argv)
+   end if
+   tell application "Reminders"
+   -- make new list with properties {name:"Automated"}
+      set mylist to list "Automated"
+      tell mylist
+	   make new reminder with properties {name:name_, remind me date:(current date) + (0.1 * minutes)}
+      end tell
+    end tell
+end run
