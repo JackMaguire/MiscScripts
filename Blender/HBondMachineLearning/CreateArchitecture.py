@@ -60,5 +60,28 @@ for i in range( 0, 9 ):
     #node.keyframe_insert( data_path="location", frame=130 )
 
 for layer in range( 1, 6 ):
+    groupname = "layer_" + str(layer) + "_nodes"
     for i in range( 0, 20 ):
-        pass
+        x = 5.0 + 2 * layer
+        y = 10 - i
+        z = 0
+        bpy.ops.mesh.primitive_cylinder_add(
+            vertices = 128,
+            radius = 0.2, 
+            depth = 0.2,
+            location = (x, y, z)   
+        )
+        node = bpy.context.object
+        layer_nodes[ layer ].append( node )
+        to_group( groupname, node )
+
+        #Location keyframes
+        node.keyframe_insert( data_path="location", frame=1 )
+
+        #start_frame = 130.0 - ( z - z_offset ) * 80.0 / 1.8
+        #node.keyframe_insert( data_path="location", frame=start_frame )
+
+        #node.location[2] = z
+        #node.keyframe_insert( data_path="location", frame=130 )
+
+    
