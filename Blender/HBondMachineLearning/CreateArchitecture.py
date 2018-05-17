@@ -66,7 +66,7 @@ for layer in range( 0, 5 ):
         y = 50.0 - i
         z = 0
         bpy.ops.mesh.primitive_cylinder_add(
-            vertices = 128,
+            vertices = 32,
             radius = 0.3, 
             depth = 0.1,
             location = (x, y, z)   
@@ -84,4 +84,26 @@ for layer in range( 0, 5 ):
         #node.location[2] = z
         #node.keyframe_insert( data_path="location", frame=130 )
 
-    
+for i in range( 0, 1 ):
+    #dummy for-loop to create scope. Though not sure how useful this is in python
+    x = 50
+    y = 1
+    z = 0
+    bpy.ops.mesh.primitive_cylinder_add(
+        vertices = 128,
+        radius = 1, 
+        depth = 0.1,
+        location = (x, y, z)   
+    )
+    node = bpy.context.object
+    output_node.append( node )
+    to_group( "output_node", node )
+
+    #Location keyframes
+    node.keyframe_insert( data_path="location", frame=1 )
+
+    #start_frame = 130.0 - ( z - z_offset ) * 80.0 / 1.8
+    #node.keyframe_insert( data_path="location", frame=start_frame )
+
+    #node.location[2] = z
+    #node.keyframe_insert( data_path="location", frame=130 )
