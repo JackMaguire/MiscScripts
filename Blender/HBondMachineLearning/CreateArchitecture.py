@@ -22,11 +22,6 @@ input_nodes = []
 layer_nodes = []
 for x in range( 0, 5 ):
     layer_nodes.append( [] )
-#first_layer_nodes = []
-#second_layer_nodes = []
-#third_layer_nodes = []
-#fourth_layer_nodes = []
-#fifth_layer_nodes = []
 output_node = []
 
 bpy.ops.group.create( name="input_nodes" )
@@ -107,3 +102,36 @@ for i in range( 0, 1 ):
 
     #node.location[2] = z
     #node.keyframe_insert( data_path="location", frame=130 )
+
+
+
+#Set Materials!
+input_node_mat = bpy.data.materials.get("input_node")
+if node_mat is None:
+    node_mat = bpy.data.materials.new(name="input_node")
+for node in input_nodes:
+    if node.data.materials:
+        node.data.materials[0] = node_mat
+    else:
+        node.data.materials.append( node_mat )
+
+for layer in range( 0, 5 ):
+    matname = "layer_" + str(layer) + "_material"
+    node_mat = bpy.data.materials.get( matname )
+    if node_mat is None:
+        node_mat = bpy.data.materials.new(name=matname)
+    for node in layer_nodes[ layer ]:
+        if node.data.materials:
+            node.data.materials[0] = node_mat
+        else:
+            node.data.materials.append( node_mat )
+
+output_node_mat = bpy.data.materials.get("output_node")
+if node_mat is None:
+    node_mat = bpy.data.materials.new(name="output_node")
+for node in output_node:
+    if node.data.materials:
+        node.data.materials[0] = node_mat
+    else:
+        node.data.materials.append( node_mat )
+
