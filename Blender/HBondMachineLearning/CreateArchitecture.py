@@ -20,7 +20,7 @@ def to_group(named, obj):
 #data
 input_nodes = []
 layer_nodes = []
-for x in range( 1, 6 ):
+for x in range( 0, 5 ):
     layer_nodes.append( [] )
 #first_layer_nodes = []
 #second_layer_nodes = []
@@ -30,7 +30,7 @@ for x in range( 1, 6 ):
 output_node = []
 
 bpy.ops.group.create( name="input_nodes" )
-for x in range( 1, 6 ):
+for x in range( 0, 5 ):
     groupname = "layer_" + str(x) + "_nodes"
     bpy.ops.group.create( name=groupname )
 bpy.ops.group.create( name="output_node" )
@@ -59,11 +59,11 @@ for i in range( 0, 9 ):
     #node.location[2] = z
     #node.keyframe_insert( data_path="location", frame=130 )
 
-for layer in range( 1, 6 ):
+for layer in range( 0, 5 ):
     groupname = "layer_" + str(layer) + "_nodes"
     for i in range( 0, 20 ):
-        x = 5.0 + 2 * layer
-        y = 10 - i
+        x = 7.0 + 2 * layer
+        y = 10.0 - i
         z = 0
         bpy.ops.mesh.primitive_cylinder_add(
             vertices = 128,
