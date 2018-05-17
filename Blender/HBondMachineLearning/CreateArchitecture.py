@@ -36,7 +36,7 @@ bpy.ops.group.create( name="output_node" )
 
 #create input nodes
 for i in range( 0, 9 ):
-    x = -5.0
+    x = 5.0
     y = 8 - i * 2
     z = 0
     bpy.ops.mesh.primitive_cylinder_add(
