@@ -61,14 +61,14 @@ for i in range( 0, 9 ):
 
 for layer in range( 0, 5 ):
     groupname = "layer_" + str(layer) + "_nodes"
-    for i in range( 0, 20 ):
-        x = 7.0 + 2 * layer
-        y = 10.0 - i
+    for i in range( 0, 40 ):
+        x = 7.0 + 4 * layer
+        y = 20.0 - i
         z = 0
         bpy.ops.mesh.primitive_cylinder_add(
             vertices = 128,
             radius = 0.2, 
-            depth = 0.2,
+            depth = 0.1,
             location = (x, y, z)   
         )
         node = bpy.context.object
