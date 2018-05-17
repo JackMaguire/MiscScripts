@@ -19,19 +19,20 @@ def to_group(named, obj):
 
 #data
 input_nodes = []
-first_layer_nodes = []
-second_layer_nodes = []
-third_layer_nodes = []
-fourth_layer_nodes = []
-fifth_layer_nodes = []
+layer_nodes = []
+for x in range( 1, 6 ):
+    layer_nodes.append( [] )
+#first_layer_nodes = []
+#second_layer_nodes = []
+#third_layer_nodes = []
+#fourth_layer_nodes = []
+#fifth_layer_nodes = []
 output_node = []
 
 bpy.ops.group.create( name="input_nodes" )
-bpy.ops.group.create( name="first_layer_nodes" )
-bpy.ops.group.create( name="second_layer_nodes" )
-bpy.ops.group.create( name="third_layer_nodes" )
-bpy.ops.group.create( name="fourth_layer_nodes" )
-bpy.ops.group.create( name="fifth_layer_nodes" )
+for x in range( 1, 6 ):
+    groupname = "layer_" + str(x) + "_nodes"
+    bpy.ops.group.create( name=groupname )
 bpy.ops.group.create( name="output_node" )
 
 #create input nodes
@@ -57,3 +58,7 @@ for i in range( 0, 9 ):
 
     #node.location[2] = z
     #node.keyframe_insert( data_path="location", frame=130 )
+
+for layer in range( 1, 6 ):
+    for i in range( 0, 20 ):
+        pass
