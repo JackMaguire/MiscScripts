@@ -42,7 +42,7 @@ for i in range( 0, 9 ):
     bpy.ops.mesh.primitive_cylinder_add(
         vertices = 128,
         radius = 0.5, 
-        depth = 0.5,
+        depth = 0.2,
         location = (x, y, z)   
     )
     node = bpy.context.object
