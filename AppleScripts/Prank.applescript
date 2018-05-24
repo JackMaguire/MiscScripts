@@ -3,7 +3,8 @@ property spotPlay : «constant ****kPSP»
 on run {input, parameters}
     repeat
         #delay 10
-        delay 68400 #19 hours
+        #delay 68400 #19 hours
+	delay 10000 #just under 4 hours
         if application "Spotify" is running then
             tell application "Spotify" to set playerState to player state
             if playerState = spotPlay then
