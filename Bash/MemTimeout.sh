@@ -11,7 +11,7 @@
 
 token=$1
 mem_percent_limit=$2
-if [[ "$#" -gt "2" ]];
+if [[ "$#" -gt "2" ]]; then
     death_file=$3
 fi
 
