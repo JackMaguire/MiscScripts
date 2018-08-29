@@ -69,30 +69,25 @@ ax.set_title('Scatter with zorder={0}'.format(1))
 plt.show()
 '''
 
-# make up some randomly distributed data
-seed(1234)
 npts = len(x_array)
 #x = uniform(-2,2,len(x_array))
 #y = uniform(-2,2,len(y_array))
 x = np.asarray( x_array )
-print( len( x ) )
-assert len( x ) == len( x_array )
 y = np.asarray( y_array )
+assert len( x ) == len( x_array )
 assert len( y ) == len( y_array )
 z = x * np.exp( -x**2 - y**2 )
-print( len( z ) )
 # define grid
-xi = np.linspace(0,100,1000)
-yi = np.linspace(0,200,1000)
+xi = np.linspace(0,40,400)
+yi = np.linspace(0,60,600)
 # grid the data.
-#zi = xi*yi
 zi = griddata((x, y), z, (xi[None,:], yi[:,None]), method='cubic')
 # contour the gridded data, plotting dots at the randomly spaced data points.
-CS = plt.contour(xi,yi,zi,15,linewidths=0.5,colors='k')#ValueError: zero-size array to reduction operation minimum which has no identity
-CS = plt.contourf(xi,yi,zi,15,cmap=plt.cm.jet)
+CS = plt.contour(xi,yi,zi,5,linewidths=0.5,colors='k')
+CS = plt.contourf(xi,yi,zi,5,cmap=plt.cm.jet)
 plt.colorbar() # draw colorbar
 # plot data points.
-plt.scatter(x,y,marker='o',c='b',s=5)
+#plt.scatter(x,y,marker='o',c='b',s=5)
 plt.xlim(0,100)
 plt.ylim(0,200)
 plt.title('griddata test (%d points)' % npts)
