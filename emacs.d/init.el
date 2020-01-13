@@ -115,5 +115,6 @@
 ;     (color-theme-hober)))
 
 
+; You may need to change $HOME to the actual path
 (add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes/")
 (load-theme 'badwolf t)
