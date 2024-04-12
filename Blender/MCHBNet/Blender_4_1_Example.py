@@ -42,6 +42,14 @@ class Data:
             [0.05, 3.2, 10],
         ]
 
+    def mean_x( self ):
+        numbers = [i[0] for i in self.green_coords+self.blue_coords]
+        return float(sum(numbers)) / max(len(numbers), 1)
+
+    def mean_y( self ):
+        numbers = [i[1] for i in self.green_coords+self.blue_coords]
+        return float(sum(numbers)) / max(len(numbers), 1)
+
 def create_node(x, y, z, S, use_spheres=False):
     if use_spheres:
         bpy.ops.mesh.primitive_uv_sphere_add(
@@ -120,6 +128,40 @@ def set_materials(D):
     setter(  D.blue_nodes, bmat )
     setter( D.hbond_edges, emat )
 
+def get_active_camera():
+    # Function to get the currently active camera in the scene
+    return bpy.context.scene.camera
+
+def rotate_camera_around_point_XY(x, y, z, r, first_frame, last_frame,
+                                  pos_offset=0, x_tilt=0):
+    camera = get_active_camera()
+    num_frames = last_frame - first_frame + 1
+    
+    for i in range(first_frame, last_frame + 1):
+        # Calculate the current position in the animation loop
+        pos = (i + pos_offset) % num_frames
+        
+        # Calculate the percentage of the loop completed
+        fraction = pos / num_frames
+        radians = 2 * math.pi * fraction
+        
+        # Calculate new X and Y positions based on radius and angle
+        pos_x = x + r * math.cos(radians)
+        pos_y = y + r * math.sin(radians)
+
+        # Update camera location
+        camera.location = (pos_x, pos_y, z)
+        camera.keyframe_insert(data_path="location", frame=i)
+
+        # Update camera rotation
+        # Assuming the rotation around z-axis to keep the camera oriented towards the center
+        camera.rotation_euler = (
+            math.pi/2 + x_tilt,
+            0,
+            math.pi * ( 0.5 + ( 2.0 * fraction ) )
+        )
+        camera.keyframe_insert(data_path="rotation_euler", frame=i)
+
 def main():
     S = Settings()
     D = Data()
@@ -144,6 +186,16 @@ def main():
     to_collection("edges", n)
 
     set_materials(D)
+
+    rotate_camera_around_point_XY(
+        x=D.mean_x(),
+        y=D.mean_y(),
+        z=1,
+        r=10,
+        first_frame=50,
+        last_frame=250,
+        pos_offset=0 )
+
 
 if __name__ == '__main__':
     main()
