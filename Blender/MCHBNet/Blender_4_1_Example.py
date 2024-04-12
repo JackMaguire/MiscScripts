@@ -38,13 +38,19 @@ blue_coords = [  # 8
     [0.05, 3.2, 10],
 ]
 
-def create_node(x, y, z, listr):
-    bpy.ops.mesh.primitive_cylinder_add(
-        radius=R,
-        depth=D,
-        location=(x, y, z_offset),
-        scale=(1, 1, 1)
-    )
+def create_node(x, y, z, listr, use_spheres=False):
+    if use_spheres:
+        bpy.ops.mesh.primitive_uv_sphere_add(
+            radius=R,
+            location=(x, y, z_offset)
+        )
+    else:
+        bpy.ops.mesh.primitive_cylinder_add(
+            radius=R,
+            depth=D,
+            location=(x, y, z_offset),
+            scale=(1, 1, 1)
+        )
     node = bpy.context.object
     bpy.context.collection.objects.unlink(bpy.context.object)  # Unlink from current collection
 
