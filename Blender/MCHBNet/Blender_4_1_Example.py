@@ -1,5 +1,6 @@
 import bpy
 import math
+import bmesh
 
 class Settings:
     def __init__( self ):
@@ -162,9 +163,73 @@ def rotate_camera_around_point_XY(x, y, z, r, first_frame, last_frame,
         )
         camera.keyframe_insert(data_path="rotation_euler", frame=i)
 
+def create_face_for_3_objects( objs ):
+    assert len(objs) == 3, len(objs)
+
+    # Step 1: Creating the Triangle Mesh
+    
+    # Create a new mesh and a new object
+    mesh = bpy.data.meshes.new('TriangleMesh')
+    obj = bpy.data.objects.new('Triangle', mesh)
+
+    # Link the object to the scene
+    scene = bpy.context.scene
+    collection = bpy.context.collection
+    collection.objects.link(obj)
+
+    # Use bmesh to create the triangle geometry
+    bm = bmesh.new()
+    v1 = bm.verts.new(objs[0].location)
+    v2 = bm.verts.new(objs[1].location)
+    v3 = bm.verts.new(objs[2].location)
+    bm.faces.new((v1, v2, v3))
+    bm.to_mesh(mesh)
+    bm.free()
+
+    # Step 2: Attaching Vertices to Other Meshes
+    def _hook_vertex_to_object(obj, vertex_index, target_object):
+        # Ensure we're in object mode
+        bpy.ops.object.mode_set(mode='OBJECT')
+
+        # Select the object and make it the active object
+        bpy.context.view_layer.objects.active = obj
+        obj.select_set(True)
+
+        # Deselect all vertices
+        bpy.ops.object.mode_set(mode='EDIT')
+        bpy.ops.mesh.select_all(action='DESELECT')
+
+        # Switch to vertex select mode
+        bpy.ops.object.mode_set(mode='VERTEX_PAINT')
+
+        # Select the specific vertex
+        obj.data.vertices[vertex_index].select = True
+
+        # Add a hook to the selected vertex
+        bpy.ops.object.mode_set(mode='EDIT')
+        bpy.ops.object.hook_add_newob()
+
+        # Get the last hook modifier (which is the one we just added)
+        hook_modifier = obj.modifiers[-1]
+
+        # Set the hook object to the target object
+        hook_modifier.object = target_object
+
+        # Clear selection and return to object mode
+        bpy.ops.mesh.select_all(action='DESELECT')
+        bpy.ops.object.mode_set(mode='OBJECT')
+
+    for i,v in enumerate( objs ):
+        _hook_vertex_to_object(obj, i, v)
+
+    return obj
+
 def main():
     S = Settings()
     D = Data()
+
+    #green_xyzs = []
+    #blues_xyzs = []
 
     for xy in D.green_coords:
         for z in range(xy[2]):
@@ -182,6 +247,11 @@ def main():
 
     #This is just and example edge between dummy points:
     n = cylinder_between( -1.17, -0.18, 0.1, -1.5, -0.8, 0.2, 0.005 )
+    D.hbond_edges.append( n )
+    to_collection("edges", n)
+
+    #This is another dummy:
+    n = create_face_for_3_objects( [D.blue_nodes[0], D.blue_nodes[-1], D.green_nodes[3]] )
     D.hbond_edges.append( n )
     to_collection("edges", n)
 
