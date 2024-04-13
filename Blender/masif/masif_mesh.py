@@ -8,6 +8,16 @@ class Settings:
         self.vertexR = 0.1
         self.edgeR = 0.001
 
+def assign_color_to_node( node, vertex_charge ):
+    # Set the material's diffuse color
+    mat.diffuse_color = color + (1.0,)  # the color argument should be a tuple (R, G, B); alpha is added as 1.0
+
+    # Ensure the object has a material slot
+    if not node.data.materials:
+        node.data.materials.append(mat)
+    else:
+        node.data.materials[0] = mat
+
 def create_node(x, y, z, S):
     bpy.ops.mesh.primitive_uv_sphere_add(
         radius=S.vertexR,
@@ -183,36 +193,42 @@ def build_static_mesh( vertices, F, S: Settings, name: str ):
     for v in vertices:
         n = create_node(v[0], v[1], v[2], S)
         to_collection(collection_name, n)
-        nodes.append( n )
+        nodes.append( v )
 
     # Edges
-    edges = []
-    collection_name = name+"_edges"
-    edge_indices = set(
-        [(i[0],i[1]) for i in F] +
-        [(i[0],i[2]) for i in F] +
-        [(i[1],i[2]) for i in F] )
-    for (i,j) in edge_indices:
-        xyz_i = vertices[i]
-        xyz_j = vertices[j]
-        n = cylinder_between( xyz_i[0], xyz_i[1], xyz_i[2], xyz_j[0], xyz_j[1], xyz_j[2], S.edgeR )
-        edges.append( n )
-        to_collection(collection_name, n)
+    if False:
+        edges = []
+        collection_name = name+"_edges"
+        edge_indices = set(
+            [(i[0],i[1]) for i in F] +
+            [(i[0],i[2]) for i in F] +
+            [(i[1],i[2]) for i in F] )
+        for (i,j) in edge_indices:
+            xyz_i = vertices[i]
+            xyz_j = vertices[j]
+            n = cylinder_between( xyz_i[0], xyz_i[1], xyz_i[2], xyz_j[0], xyz_j[1], xyz_j[2], S.edgeR )
+            edges.append( n )
+            to_collection(collection_name, n)
 
     # faces
-    faces = []
-    collection_name = name+"_faces"
-    for f in F:
-        objs = [nodes[i] for i in f]
-        n = create_face_for_3_objects( objs )
-        faces.append( n )
-        to_collection(collection_name, n)
+    if True:
+        faces = []
+        collection_name = name+"_faces"
+        for f in F:
+            objs = [nodes[i] for i in f]
+            n = create_face_for_3_objects( objs )
+            faces.append( n )
+            to_collection(collection_name, n)
         
 
 def main():
     S = Settings()
 
     data = np.load( "/Users/jbm13835/temps/24_04APR/dummy6/0.rawmesh.npz" )
+    vertex_charges = data["vertex_charges"]
+
+    raise Exception( f"{np.min(vertex_charges)} {np.max(vertex_charges)}" )
+#(-13,28)
     build_static_mesh(
         vertices = data["meshV"],
         F        = data["meshF"],
