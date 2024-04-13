@@ -9,8 +9,17 @@ class Settings:
         self.edgeR = 0.001
 
 def assign_color_to_node( node, vertex_charge ):
+    mat = bpy.data.materials.new(name=f"SphereMaterial_{vertex_charge}")
+
     # Set the material's diffuse color
-    mat.diffuse_color = color + (1.0,)  # the color argument should be a tuple (R, G, B); alpha is added as 1.0
+    if vertex_charge == 0.:
+        mat.diffuse_color = (1.0,1.0,1.0,1.0,)  # the color argument should be a tuple (R, G, B); alpha is added as 1.0
+    elif vertex_charge > 0:
+        B = min( vertex_charge, 10.0 ) / 10.0
+        mat.diffuse_color = (1.0-B,1.0-B,1.0,1.0,)
+    else:
+        R = min( -1.0*vertex_charge, 10.0 ) / 10.0
+        mat.diffuse_color = (1.0,1.0-R,1.0-R,1.0,)
 
     # Ensure the object has a material slot
     if not node.data.materials:
@@ -186,14 +195,15 @@ def create_face_for_3_objects( objs ):
 
     return obj
 
-def build_static_mesh( vertices, F, S: Settings, name: str ):
+def build_static_mesh( vertices, F, S: Settings, name: str, vertex_charges ):
     # Nodes
     nodes = []
     collection_name = name+"_nodes"
-    for v in vertices:
+    for count,v in enumerate(vertices):
         n = create_node(v[0], v[1], v[2], S)
+        assign_color_to_node( n, vertex_charge=vertex_charges[count] )
         to_collection(collection_name, n)
-        nodes.append( v )
+        nodes.append( n )
 
     # Edges
     if False:
@@ -224,15 +234,16 @@ def build_static_mesh( vertices, F, S: Settings, name: str ):
 def main():
     S = Settings()
 
-    data = np.load( "/Users/jbm13835/temps/24_04APR/dummy6/0.rawmesh.npz" )
+    data = np.load( "/tmp/24_04APR/dummy6/0.rawmesh.npz" )
     vertex_charges = data["vertex_charges"]
 
-    raise Exception( f"{np.min(vertex_charges)} {np.max(vertex_charges)}" )
-#(-13,28)
+    #raise Exception( f"{np.min(vertex_charges)} {np.max(vertex_charges)}" )
+    #(-13,28)
     build_static_mesh(
         vertices = data["meshV"],
         F        = data["meshF"],
         S    = S,
+        vertex_charges = vertex_charges,
         name = "0" )
 
     return
