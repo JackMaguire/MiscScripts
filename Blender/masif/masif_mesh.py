@@ -183,7 +183,7 @@ def build_static_mesh( vertices, F, S: Settings, name: str ):
     for v in vertices:
         n = create_node(v[0], v[1], v[2], S)
         to_collection(collection_name, n)
-        nodes.append( v )
+        nodes.append( n )
 
     # Edges
     edges = []
