@@ -11,15 +11,17 @@ class Settings:
 def create_node(x, y, z, S):
     bpy.ops.mesh.primitive_uv_sphere_add(
         radius=S.vertexR,
-        location=(x, y, S.z0)
+        location=(x, y, z)
     )
 
     node = bpy.context.object
     bpy.context.collection.objects.unlink(bpy.context.object)  # Unlink from current collection
 
+    return node
+
     node.keyframe_insert(data_path="location", frame=1)
 
-    start_frame = 130.0 - (z - S.z0) * 80.0 / 1.8
+    start_frame = 130.0 - z * 80.0 / 1.8
     node.keyframe_insert(data_path="location", frame=start_frame)
 
     node.location.z = z
@@ -209,34 +211,15 @@ def build_static_mesh( vertices, F, S: Settings, name: str ):
 
 def main():
     S = Settings()
-    D = Data()
 
-    #green_xyzs = []
-    #blues_xyzs = []
+    data = np.load( "/Users/jbm13835/temps/24_04APR/dummy6/0.rawmesh.npz" )
+    build_static_mesh(
+        vertices = data["meshV"],
+        F        = data["meshF"],
+        S    = S,
+        name = "0" )
 
-    for xy in D.green_coords:
-        for z in range(xy[2]):
-            n = create_node(xy[0], xy[1], S.z0 + (S.z_gap * z), S, use_spheres=False)
-            collection_name = "first_nodes" if z == 0 else "extra_nodes"
-            to_collection(collection_name, n)
-            D.green_nodes.append( n )
-
-    for xy in D.blue_coords:
-        for z in range(xy[2]):
-            n = create_node(xy[0], xy[1], S.z0 + (S.z_gap * z), S, use_spheres=False)
-            collection_name = "first_nodes" if z == 0 else "extra_nodes"
-            to_collection(collection_name, n)
-            D.blue_nodes.append( n )
-
-    #This is just and example edge between dummy points:
-    n = cylinder_between( -1.17, -0.18, 0.1, -1.5, -0.8, 0.2, 0.005 )
-    D.hbond_edges.append( n )
-    to_collection("edges", n)
-
-    #This is another dummy:
-    n = create_face_for_3_objects( [D.blue_nodes[0], D.blue_nodes[-1], D.green_nodes[3]] )
-    D.hbond_edges.append( n )
-    to_collection("edges", n)
+    return
 
     set_materials(D)
 
