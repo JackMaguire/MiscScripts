@@ -13,19 +13,22 @@ def assign_color_to_node( node, vertex_charge ):
 
     # Set the material's diffuse color
     if vertex_charge == 0.:
-        mat.diffuse_color = (1.0,1.0,1.0,1.0,)  # the color argument should be a tuple (R, G, B); alpha is added as 1.0
+        C = (1.0,1.0,1.0,1.0,) # the color argument should be a tuple (R, G, B); alpha is added as 1.0
     elif vertex_charge > 0:
         B = min( vertex_charge, 10.0 ) / 10.0
-        mat.diffuse_color = (1.0-B,1.0-B,1.0,1.0,)
+        C = (1.0-B,1.0-B,1.0,1.0,)
     else:
         R = min( -1.0*vertex_charge, 10.0 ) / 10.0
-        mat.diffuse_color = (1.0,1.0-R,1.0-R,1.0,)
+        C = (1.0,1.0-R,1.0-R,1.0,)
+
+    mat.diffuse_color = C
 
     # Ensure the object has a material slot
     if not node.data.materials:
         node.data.materials.append(mat)
     else:
         node.data.materials[0] = mat
+    return C
 
 def create_node(x, y, z, S):
     bpy.ops.mesh.primitive_uv_sphere_add(
@@ -134,14 +137,16 @@ def rotate_camera_around_point_XY(x, y, z, r, first_frame, last_frame,
         )
         camera.keyframe_insert(data_path="rotation_euler", frame=i)
 
-def create_face_for_3_objects( objs ):
+def create_face_for_3_objects( objs, colors ):
     assert len(objs) == 3, len(objs)
+    assert len(colors) == 3, len(colors)
 
     # Step 1: Creating the Triangle Mesh
 
     # Create a new mesh and a new object
     mesh = bpy.data.meshes.new('TriangleMesh')
     obj = bpy.data.objects.new('Triangle', mesh)
+    triangle = obj
 
     # Link the object to the scene
     scene = bpy.context.scene
@@ -193,17 +198,48 @@ def create_face_for_3_objects( objs ):
     for i,v in enumerate( objs ):
         _hook_vertex_to_object(obj, i, v)
 
+    # Step 3: Coloring Vertices
+    if True:
+        # Add a vertex color layer
+        mesh.vertex_colors.new()
+        color_layer = mesh.vertex_colors.active
+
+        for poly in mesh.polygons:
+            for loop_index in poly.loop_indices:
+                loop_vert_index = mesh.loops[loop_index].vertex_index
+                # Match vertex to original object by location
+                for i, obj2 in enumerate(objs):
+                    if (mesh.vertices[loop_vert_index].co - obj2.location).length < 0.0001:
+                        color_layer.data[loop_index].color = colors[i]
+
+
+        # Create a material that uses vertex colors
+        mat = bpy.data.materials.new(name="VertexColorMaterial")
+        mat.use_nodes = True
+        bsdf = mat.node_tree.nodes.get('Principled BSDF')
+        vertex_color_node = mat.node_tree.nodes.new(type='ShaderNodeVertexColor')
+        vertex_color_node.layer_name = color_layer.name
+        mat.node_tree.links.new(bsdf.inputs['Base Color'], vertex_color_node.outputs['Color'])
+
+        # Assign material to object
+        if obj.data.materials:
+            obj.data.materials[0] = mat
+        else:
+            obj.data.materials.append(mat)
+
     return obj
 
 def build_static_mesh( vertices, F, S: Settings, name: str, vertex_charges ):
     # Nodes
     nodes = []
+    node_colors = []
     collection_name = name+"_nodes"
     for count,v in enumerate(vertices):
         n = create_node(v[0], v[1], v[2], S)
-        assign_color_to_node( n, vertex_charge=vertex_charges[count] )
+        c = assign_color_to_node( n, vertex_charge=vertex_charges[count] )
         to_collection(collection_name, n)
         nodes.append( n )
+        node_colors.append( c )
 
     # Edges
     if False:
@@ -226,16 +262,19 @@ def build_static_mesh( vertices, F, S: Settings, name: str, vertex_charges ):
         collection_name = name+"_faces"
         for f in F:
             objs = [nodes[i] for i in f]
-            n = create_face_for_3_objects( objs )
+            cs = [node_colors[i] for i in f]
+            n = create_face_for_3_objects( objs, cs )
             faces.append( n )
             to_collection(collection_name, n)
         
 
 def main():
-    S = Settings()
+    # filename="/path/to/masif_bender.py" ; exec(compile(open(filename).read(), filename, 'exec'))
 
     data = np.load( "/tmp/24_04APR/dummy6/0.rawmesh.npz" )
     vertex_charges = data["vertex_charges"]
+
+    S = Settings()
 
     #raise Exception( f"{np.min(vertex_charges)} {np.max(vertex_charges)}" )
     #(-13,28)
